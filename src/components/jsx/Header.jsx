@@ -1,13 +1,7 @@
 import { Link } from "react-router-dom"
-import Login from "./Login";
-import ReactDOM from 'react-dom';
+
 
 const Header = () => {
-
-    const renderlogin = (type) => {
-        console.log("render " + type);
-        ReactDOM.render(<Login type={type} />, document.querySelector(".leftpart"))
-    }
     return (
         <header>
             <div className="logo">
@@ -27,10 +21,8 @@ const Header = () => {
                     <Link to='/' className="navlink"  >  <li>Home</li></Link>
                     <Link to='/' className="navlink"  >  <li>About</li></Link>
                     <Link to='/' className="navlink"  >  <li>Pricing</li></Link>
-                    <li className="navlink" onClick={() => renderlogin("login")} >Login</li>
-                    <li className="navlink" onClick={() => renderlogin("signin")}>SignUp</li>
-
-
+                    <Link to='/login' className="navlink" ><li>Login</li></Link>
+                    <Link to='/signup' className="navlink" ><li>Signin</li></Link>
                 </ul>
             </nav>
 

@@ -10,7 +10,8 @@ const Input = ({ name, control, type }) => {
                     {...field}
                     placeholder={name.slice(0, 1).toUpperCase() + name.slice(1,)}
                     required
-                    autoComplete={type === "password" ? "on" : "off"}
+                    autoComplete="on"
+                    defaultValue=''
                 />
 
             }

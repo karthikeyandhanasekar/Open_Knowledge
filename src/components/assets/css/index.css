@@ -57,7 +57,7 @@ nav ul {
 .leftpart {
     padding        : 2%;
     width          : 50%;
-    height         : 70vh;
+    height         : inherit;
     display        : flex;
     flex-direction : column;
     justify-content: center;
@@ -69,10 +69,11 @@ nav ul {
 }
 
 blockquote {
-    font-size    : 4vw;
+    font-size    : 2vw;
     text-align   : justify;
     margin-bottom: 2%;
     color        : #a52a2a;
+    line-height  : 1.6;
 }
 
 .leftpart p {
@@ -81,21 +82,12 @@ blockquote {
 }
 
 .leftpart button {
-    margin-left  : 25%;
     border       : none;
-    font-size    : 1.2em;
+    font-size    : 1.5vw;
     background   : rgb(1, 247, 34);
-    padding      : 1%;
+    padding      : 5%;
     border-radius: 5%;
-
-}
-
-.orlogin {
-    margin-left: 25%;
-}
-
-.orlogin :hover {
-    text-decoration: underline;
+    width        : 10vw
 }
 
 form {
@@ -166,7 +158,6 @@ label {
 
     .leftpart {
         width  : 100%;
-        border : solid;
         padding: 0;
 
     }
