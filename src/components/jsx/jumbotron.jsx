@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import Input from "./FormField/Input";
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import poster from '../assets/images/poster.png'
 import { useDispatch } from "react-redux"
 import { bindActionCreators } from 'redux';
@@ -11,7 +11,9 @@ import * as actioncreators from "../../redux/actioncreators/index";
 import { useSelector } from "react-redux";
 
 const JumboTron = () => {
+    const [passworderror, setpassworderror] = React.useState('')
     const location = useLocation();
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const state = useSelector(state => state)
     const actions = bindActionCreators(actioncreators, dispatch)
@@ -27,18 +29,37 @@ const JumboTron = () => {
     )
 
     const onlogin = (data) => {
+        setpassworderror("")
+        const isexist = state.newusers.some(ele => ele.email === data.email && ele.password === data.password)
+        console.log(isexist);
+        if (!isexist) {
+            setpassworderror("Invalid Email/Password")
+            return
+        }
+        actions.updatelogstatus(data.email)
         reset({
             email: '',
             password: ''
         })
     }
     const onsignin = (data) => {
-        actions.adduser(data)
-        reset({
-            email: '',
-            password: ''
-        })
+        const isexist = state.newusers.some(ele => ele.email === data.email)
+        console.log(isexist);
+        if (!isexist) {
+            data["haslogged"] = false
+            actions.adduser(data)
+            navigate('/login')
+            reset({
+                email: '',
+                password: ''
+            })
+            return
+        }
+        setpassworderror("Email Already Exist")
+
+
     }
+
     const login = () => <div className="leftpart">
 
         <form name={"Login"} onSubmit={handleSubmit(onlogin)}>
@@ -47,7 +68,7 @@ const JumboTron = () => {
             <Input control={control} name={"email"} type={"email"} />
             <br />
             <Input control={control} name={"password"} type={"password"} />
-            <label>{errors.password?.message}</label>
+            <label>{passworderror.length !== 0 ? passworderror : errors.password?.message}</label>
             <br />
             <div>
                 <input type="submit" value={"Login"} />
@@ -64,7 +85,7 @@ const JumboTron = () => {
             <Input control={control} name={"email"} type={"email"} />
             <br />
             <Input control={control} name={"password"} type={"password"} />
-            <label>{errors.password?.message}</label>
+            <label>{passworderror.length !== 0 ? passworderror : errors.password?.message}</label>
             <br />
             <div>
                 <input type="submit" value={"Signin"} />
@@ -74,6 +95,7 @@ const JumboTron = () => {
         </form>
     </div>
 
+    console.log(passworderror.length !== 0 ? passworderror : errors.password?.message);
     return (
         <React.Fragment>
             {

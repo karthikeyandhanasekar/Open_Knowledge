@@ -10,10 +10,10 @@ export const adduser = (data) => {
     }
 }
 
-export const checkuser = (data) => {
+export const updatelogstatus = (data) => {
     return (dispatch) => {
         dispatch({
-            type: "signup",
+            type: "logged",
             user: data
         })
     }
